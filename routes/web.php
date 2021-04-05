@@ -15,5 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/new','NewController@index');
-Route::post('/new','NewController@store');
+Route::get('/new','NewController@create');
+Route::post('/save','NewController@store');
+Route::get('/','NewController@index');
+Route::get('/gt/{code}','NewController@check');

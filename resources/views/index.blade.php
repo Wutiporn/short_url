@@ -30,21 +30,34 @@
 <body>
 
 <div class="container">
-    <br>
-    <h1>Short</h1>
-    <form action="/save" method="post">
-        @csrf
-        <div class="long_url mb-3">
-            <label for="long_url" class="form-label">Past Long URL</label>
-            <input type="text" class="form-control" id="long_url" name="long_url">
-        </div>
-        <button type="submit" class="btn btn-primary" >Create Short URL</button>
-    </form>
-    <br>
+    @if($message = Session::get('success'))
+        <p>{{$message}}</p>
+    @endif
+    <a href="/new">create</a>
+    <p>Your Quota Remaining {{10-count($urls)}}/10</p>
+    @if(!$urls->isEmpty())
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">long url</th>
+                <th scope="col">short url</th>
+                <th scope="col">create</th>
+            </tr>
+            </thead>
+            <tbody>
 
+                @foreach($urls as $url)
+                    <tr>
+                    <td>{{$url->long_url}}</td>
+                    <td><a href="/gt/{{$url->short_url}}" target="_blank">{{$url->short_url}}</a></td>
+                    <td>{{$url->created_at}}</td>
+                    </tr>
+                @endforeach
+
+            </tbody>
+        </table>
+    @endif
 </div>
-
-
 
 <!-- Optional JavaScript; choose one of the two! -->
 
